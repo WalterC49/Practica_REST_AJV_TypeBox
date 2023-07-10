@@ -1,5 +1,5 @@
-require("./config/env");
-const server = require("./config/http");
+import "./config/env.js";
+import server from "./config/http.js";
 
 const main = async () => {
   server.listen(process.env.PORT);

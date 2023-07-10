@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "prettier": "prettier --write .",
-    "eslint": "eslint src/** --fix --ext .js"
+    "eslint": "eslint src/**/* --fix --ext .js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sinclair/typebox": "0.29.4",
     "ajv": "8.12.0",
+    "ajv-errors": "3.0.0",
     "bcryptjs": "2.4.3",
     "cookie-parser": "1.4.6",
     "dotenv": "16.3.1",
@@ -22,7 +25,7 @@
     "nanoid": "4.0.2"
   },
   "devDependencies": {
-    "eslint": "8.44.0",
+    "eslint": "^8.44.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-config-standard": "17.1.0",
     "eslint-plugin-import": "2.27.5",

@@ -1,6 +1,6 @@
-const expressApp = require("./express");
-const http = require("http");
+import expressApp from "./express.js";
+import { createServer } from "http";
 
-const server = http.createServer(expressApp);
+const server = createServer(expressApp);
 
-module.exports = server;
+export default server;
