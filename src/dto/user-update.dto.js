@@ -9,11 +9,12 @@ import {
 } from "./user.dto-types.js";
 
 // Creo el esquema que quiero validar
-const RegisterDTOSchema = Type.Object(
+const UpdateDTOSchema = Type.Object(
   {
     name: nameDTOSchema,
     email: emailDTOSchema,
-    pass: passDTOSchema,
+    oldPass: passDTOSchema,
+    newPass: passDTOSchema,
   },
   {
     additionalProperties: false,
@@ -22,7 +23,8 @@ const RegisterDTOSchema = Type.Object(
       required: {
         name: "Debe tener una propiedad 'name'",
         email: "Debe tener una propiedad 'email'",
-        pass: "Debe tener una propiedad 'pass'",
+        oldPass: "Debe tener una propiedad 'oldPass'",
+        newPass: "Debe tener una propiedad 'newPass'",
       },
     },
   },
@@ -33,10 +35,10 @@ ajv.addFormat("password", /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/); // le agrego un
 addErrors(ajv); // le agrego los errors a ajv
 addFormats(ajv, ["email"]); // si el 2do parametro está vacío, agrega todos los formatos por defecto
 
-const validateSchema = ajv.compile(RegisterDTOSchema); // compile crea un validador teniendo en cuenta el schema que se la pasa
+const validateSchema = ajv.compile(UpdateDTOSchema); // compile crea un validador teniendo en cuenta el schema que se la pasa
 
 // Creo un middleware para validar el objecto/schema que recibo a través del body
-const userRegisterDTO = (req, res, next) => {
+const userUpdateDTO = (req, res, next) => {
   const isDTOValid = validateSchema(req.body);
 
   if (!isDTOValid)
@@ -47,4 +49,4 @@ const userRegisterDTO = (req, res, next) => {
   next();
 };
 
-export default userRegisterDTO;
+export default userUpdateDTO;

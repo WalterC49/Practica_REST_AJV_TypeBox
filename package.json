@@ -8,7 +8,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "prettier": "prettier --write .",
-    "eslint": "eslint src/**/* --fix --ext .js"
+    "eslint": "eslint src/**/*.js --fix"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +17,8 @@
     "@sinclair/typebox": "0.29.4",
     "ajv": "8.12.0",
     "ajv-errors": "3.0.0",
+    "ajv-formats": "^2.1.1",
     "bcryptjs": "2.4.3",
-    "cookie-parser": "1.4.6",
     "dotenv": "16.3.1",
     "express": "4.18.2",
     "mysql": "2.18.1",

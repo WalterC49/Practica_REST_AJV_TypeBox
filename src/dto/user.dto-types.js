@@ -11,16 +11,23 @@ export const nameDTOSchema = Type.String({
   },
 });
 
-export const emailDTOSchema =
-  Type.String(/* {
-  // format: "email",
+export const emailDTOSchema = Type.String({
+  format: "email",
   errorMessage: {
     type: "Debe ser un String",
-    // format: "El formato del email no es válido",
+    format: "El formato del email no es válido",
   },
-} */);
+});
 
-export const passDTOSchema =
-  Type.String(/* {
-  errorMessage: { type: "Debe ser un String" },
-} */);
+export const passDTOSchema = Type.String({
+  format: "password",
+  minLength: 5,
+  maxLength: 25,
+  errorMessage: {
+    type: "Debe ser un String",
+    format:
+      "El formato de la password, debe contener una mayúscula, una minúcula y un número",
+    minLength: "El password debe tener mínimo de 5 carácteres",
+    maxLength: "El password debe tener un máximo de 25 carácteres",
+  },
+});
