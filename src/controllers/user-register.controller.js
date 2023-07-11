@@ -1,6 +1,7 @@
 import connection from "../config/database.js";
 import bcrypt from "bcryptjs";
 import { nanoid } from "nanoid";
+import { SALT } from "../constants/salt.js";
 
 const userRegisterController = (req, res) => {
   try {
@@ -22,7 +23,7 @@ const userRegisterController = (req, res) => {
               if (error) {
                 return res.status(500).send("Error: " + error);
               } else if (results.length === 0) {
-                const passHash = await bcrypt.hash(pass, 8);
+                const passHash = await bcrypt.hash(pass, SALT);
 
                 connection.query(
                   "INSERT INTO users SET ?",

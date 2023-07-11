@@ -8,8 +8,7 @@ const userJWTDTO = async (req, res, next) => {
     return res.status(401).send({ errors: ["Usuario no autorizado.1"] });
   }
 
-  const token = authorization.split(" ")[1]; // Bearer[0] token[1]
-
+  const token = authorization.split(" ")[1]; // [Bearer, token]
   if (!token) {
     return res.status(401).send({ errors: ["Usuario no autorizado.2"] });
   }
