@@ -1,7 +1,7 @@
 # Practica_REST_AJV_TypeBox
 # To use
 
-First create DATABASE with rest_ajv_typebox.sql file.
+First create a MySQL DATABASE with rest_ajv_typebox.sql file.
 
 # API Routes
 
