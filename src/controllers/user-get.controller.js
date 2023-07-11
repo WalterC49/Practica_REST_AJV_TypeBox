@@ -12,7 +12,7 @@ const userGetController = (req, res) => {
         } else if (results.length === 0) {
           return res.status(401).send("No existe un usuario con ese 'id'.");
         } else {
-          return res.send(results);
+          return res.send(results[0]);
         }
       },
     );

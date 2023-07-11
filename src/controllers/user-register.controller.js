@@ -7,29 +7,21 @@ const userRegisterController = (req, res) => {
     const { name, email, pass } = req.body;
 
     connection.query(
-      "SELECT * FROM users WHERE email=?",
+      "SELECT * FROM users WHERE email = ?",
       email,
       (error, results) => {
         if (error) {
           return res.status(500).send("Error: " + error);
-        } else if (results[0].email) {
-          return res
-            .status(409)
-            .send("Ya existe un usuario registrado con ese email.");
-        } else {
+        } else if (results.length === 0) {
           const id = nanoid();
 
           connection.query(
-            "SELECT * FROM users WHERE id=?",
+            "SELECT * FROM users WHERE id = ?",
             id,
             async (error, results) => {
               if (error) {
                 return res.status(500).send("Error: " + error);
-              } else if (results[0].id) {
-                return res
-                  .status(409)
-                  .send("Ya existe un usuario registrado con ese id.");
-              } else {
+              } else if (results.length === 0) {
                 const passHash = await bcrypt.hash(pass, 8);
 
                 connection.query(
@@ -45,9 +37,21 @@ const userRegisterController = (req, res) => {
                     }
                   },
                 );
+              } else if (results[0].id) {
+                return res
+                  .status(409)
+                  .send("Ya existe un usuario registrado con ese id.");
+              } else {
+                return res.status(500).send("Error: " + error);
               }
             },
           );
+        } else if (results[0].email) {
+          return res
+            .status(409)
+            .send("Ya existe un usuario registrado con ese email.");
+        } else {
+          return res.status(500).send("Error: " + error);
         }
       },
     );

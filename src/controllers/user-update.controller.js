@@ -7,7 +7,7 @@ const userUpdateController = (req, res) => {
     const { name, email, oldPass, newPass } = req.body;
 
     connection.query(
-      "SELECT * FROM users WHERE id=?",
+      "SELECT * FROM users WHERE id = ?",
       id,
       async (error, results) => {
         if (error) {
@@ -22,7 +22,7 @@ const userUpdateController = (req, res) => {
           } else {
             const hashPass = await bcrypt.hash(newPass, 8);
             connection.query(
-              "UPDATE users SET = ? WHERE id=?",
+              "UPDATE users SET ? WHERE id = ?",
               [{ name, email, pass: hashPass }, id],
               (error, results) => {
                 if (error) {

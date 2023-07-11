@@ -26,7 +26,7 @@ export const passDTOSchema = Type.String({
   errorMessage: {
     type: "Debe ser un String",
     format:
-      "El formato de la password, debe contener una mayúscula, una minúcula y un número",
+      "El formato del password, debe contener una mayúscula, una minúcula y un número",
     minLength: "El password debe tener mínimo de 5 carácteres",
     maxLength: "El password debe tener un máximo de 25 carácteres",
   },
