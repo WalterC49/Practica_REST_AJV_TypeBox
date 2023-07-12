@@ -7,7 +7,7 @@ const userProfileController = async (req, res) => {
     if (error)
       return res
         .status(401)
-        .send({ errors: ["Usuario no autorizado4"], error });
+        .send({ errors: ["Usuario no autorizado."], error });
     else res.send(results[0]);
   });
 };

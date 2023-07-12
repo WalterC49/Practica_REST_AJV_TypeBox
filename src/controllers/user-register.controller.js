@@ -12,7 +12,7 @@ const userRegisterController = (req, res) => {
       email,
       (error, results) => {
         if (error) {
-          return res.status(500).send("Error: " + error);
+          return res.status(500).send({ errors: [error] });
         } else if (results.length === 0) {
           const id = nanoid();
 
@@ -21,7 +21,7 @@ const userRegisterController = (req, res) => {
             id,
             async (error, results) => {
               if (error) {
-                return res.status(500).send("Error: " + error);
+                return res.status(500).send({ errors: [error] });
               } else if (results.length === 0) {
                 const passHash = await bcrypt.hash(pass, SALT);
 
@@ -30,34 +30,34 @@ const userRegisterController = (req, res) => {
                   { id, name, email, pass: passHash },
                   (error, results) => {
                     if (error) {
-                      return res.status(500).send("Error: " + error);
+                      return res.status(500).send({ errors: [error] });
                     } else {
                       return res
                         .status(201)
-                        .send("Usuario registrado con éxito.");
+                        .send({ errors: ["Usuario registrado con éxito."] });
                     }
                   },
                 );
               } else if (results[0].id) {
-                return res
-                  .status(409)
-                  .send("Ya existe un usuario registrado con ese id.");
+                return res.status(409).send({
+                  errors: ["Ya existe un usuario registrado con ese 'id'."],
+                });
               } else {
-                return res.status(500).send("Error: " + error);
+                return res.status(500).send({ errors: [error] });
               }
             },
           );
         } else if (results[0].email) {
-          return res
-            .status(409)
-            .send("Ya existe un usuario registrado con ese email.");
+          return res.status(409).send({
+            errors: ["Ya existe un usuario registrado con ese 'email'."],
+          });
         } else {
-          return res.status(500).send("Error: " + error);
+          return res.status(500).send({ errors: [error] });
         }
       },
     );
   } catch (error) {
-    return res.status(500).send("Error: " + error);
+    return res.status(500).send({ errors: [error] });
   }
 };
 

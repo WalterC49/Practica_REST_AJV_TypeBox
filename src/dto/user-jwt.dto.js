@@ -5,12 +5,12 @@ const userJWTDTO = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    return res.status(401).send({ errors: ["Usuario no autorizado.1"] });
+    return res.status(401).send({ errors: ["Usuario no autorizado."] });
   }
 
   const token = authorization.split(" ")[1]; // [Bearer, token]
   if (!token) {
-    return res.status(401).send({ errors: ["Usuario no autorizado.2"] });
+    return res.status(401).send({ errors: ["Usuario no autorizado."] });
   }
 
   try {
@@ -23,7 +23,7 @@ const userJWTDTO = async (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(401).send({ errors: ["Usuario no autorizado3."] });
+    return res.status(401).send({ errors: ["Usuario no autorizado."] });
   }
 };
 

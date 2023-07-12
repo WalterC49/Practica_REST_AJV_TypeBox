@@ -11,21 +11,21 @@ const userDeleteController = (req, res) => {
       id,
       async (error, results) => {
         if (error) {
-          return res.status(500).send("Error: " + error);
+          return res.status(500).send({ errors: [error] });
         } else if (results.length === 0) {
-          return res.status(401).send("Usuario no autorizado.");
+          return res.status(401).send({ errors: ["Usuario no autorizado."] });
         } else {
           if (!results[0].id === id) {
             console.log(results);
-            return res.status(401).send("Usuario no autorizado1.");
+            return res.status(401).send({ errors: ["Usuario no autorizado."] });
           } else if (!(await bcrypt.compare(pass, results[0].pass))) {
-            return res.status(401).send("Usuario no autorizado2.");
+            return res.status(401).send({ errors: ["Usuario no autorizado."] });
           } else {
             connection.query(
               "DELETE FROM users WHERE id = ?",
               id,
               (error, results) => {
-                if (error) return res.status(500).send("Error: " + error);
+                if (error) return res.status(500).send({ errors: [error] });
                 else return res.send("Usuario eliminado.");
               },
             );
@@ -34,7 +34,7 @@ const userDeleteController = (req, res) => {
       },
     );
   } catch (error) {
-    return res.status(500).send("Error: " + error);
+    return res.status(500).send({ errors: [error] });
   }
 };
 

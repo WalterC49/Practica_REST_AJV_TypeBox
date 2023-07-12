@@ -20,9 +20,19 @@ const userRouter = Router();
 userRouter.get("/users", userGetAllController);
 userRouter.get("/users/:id", userGetController);
 userRouter.post("/users", userRegisterDTO, userRegisterController);
-userRouter.put("/users/:id", userUpdateDTO, userUpdateController);
-userRouter.patch("/users/:id", userUpdateNameDTO, userUpdateNameController);
-userRouter.delete("/users/:id", userDeleteDTO, userDeleteController);
+userRouter.put("/users/:id", userUpdateDTO, userJWTDTO, userUpdateController);
+userRouter.patch(
+  "/users/:id",
+  userUpdateNameDTO,
+  userJWTDTO,
+  userUpdateNameController,
+);
+userRouter.delete(
+  "/users/:id",
+  userDeleteDTO,
+  userJWTDTO,
+  userDeleteController,
+);
 
 // Login + Auth
 userRouter.post("/login", userLoginDTO, userLoginController);

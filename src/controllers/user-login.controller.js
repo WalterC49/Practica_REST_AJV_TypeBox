@@ -11,11 +11,15 @@ const userLoginController = (req, res) => {
       email,
       async (error, results) => {
         if (error) {
-          return res.status(500).send("Error: " + error);
+          return res.status(500).send({ errors: [error] });
         } else if (results.length === 0) {
-          return res.status(401).send("Credenciales incorrectas1.");
+          return res
+            .status(401)
+            .send({ errors: ["Credenciales incorrectas."] });
         } else if (!(await bcrypt.compare(pass, results[0].pass))) {
-          return res.status(401).send("Credenciales incorrectas2.");
+          return res
+            .status(401)
+            .send({ errors: ["Credenciales incorrectas."] });
         } else {
           const token = jwt.sign(
             { id: results[0].id },
